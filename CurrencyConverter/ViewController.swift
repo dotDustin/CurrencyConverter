@@ -19,12 +19,61 @@ class ViewController: UIViewController {
     @IBOutlet weak var usdLabel: UILabel!
     @IBOutlet weak var tryLabel: UILabel!
     
+    // MARK: - Constants & Variables
+    let apiKey = "f0297575b57ee8e56a68166183684037"//"YOUR_API_KEY"
+    
+    
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
 
-
+    // MARK: - Actions
+    
+    @IBAction func getRatesButtonPressed(_ sender: Any) {
+        
+        if let url = URL(string: "http://data.fixer.io/api/latest?access_key=\(apiKey)") {
+        
+            let session = URLSession.shared
+            let task = session.dataTask(with: url) { (data, response, error) in
+                if error != nil {
+                    let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                    let okButton = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+                    alert.addAction(okButton)
+                    DispatchQueue.main.async {
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                    
+                
+                } else {
+                    if data != nil {
+                        
+                        do {
+                            let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                            
+                            DispatchQueue.main.async {
+                                print(jsonResponse)
+                            }
+                            
+                        } catch {
+                            DispatchQueue.main.async {
+                                print("jsonserialization error")
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                }
+            }
+            
+            task.resume()
+            
+    }
+        
+    }
+    
 }
 

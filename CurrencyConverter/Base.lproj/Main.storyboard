@@ -30,6 +30,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Jt-lL-Z0O">
                                 <rect key="frame" x="173" y="521" width="68" height="30"/>
                                 <state key="normal" title="Get Rates"/>
+                                <connections>
+                                    <action selector="getRatesButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YRg-h9-JRy"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CHF:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3PV-xv-UhK">
                                 <rect key="frame" x="187.5" y="196" width="39" height="21"/>
