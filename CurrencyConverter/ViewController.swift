@@ -20,14 +20,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var tryLabel: UILabel!
     
     // MARK: - Constants & Variables
-    let apiKey = "f0297575b57ee8e56a68166183684037"//"YOUR_API_KEY"
+    let apiKey = "YOUR_API_KEY"
     
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
     }
 
     // MARK: - Actions
@@ -51,10 +51,20 @@ class ViewController: UIViewController {
                     if data != nil {
                         
                         do {
-                            let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)
+                            let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String, Any>
                             
                             DispatchQueue.main.async {
-                                print(jsonResponse)
+                                if let rates = jsonResponse["rates"] as? [String : Double] {
+                                    
+                                    self.cadLabel.text = "\(rates["CAD"] ?? 0) CAD"
+                                    self.chfLabel.text = "\(rates["CHF"] ?? 0) CHF"
+                                    self.gbpLabel.text = "\(rates["GBP"] ?? 0) GBP"
+                                    self.jpyLabel.text = "\(rates["JPY"] ?? 0) JPY"
+                                    self.usdLabel.text = "\(rates["USD"] ?? 0) USD"
+                                    self.tryLabel.text = "\(rates["TRY"] ?? 0) TRY"
+                                    
+                                }
+                                
                             }
                             
                         } catch {
